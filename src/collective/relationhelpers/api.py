@@ -4,10 +4,8 @@ from collections import Counter
 from collections import defaultdict
 from five.intid.intid import addIntIdSubscriber
 from plone import api
-from plone.app.iterate.dexterity import ITERATE_RELATION_NAME
-from plone.app.iterate.dexterity.relation import StagingRelationValue
-from plone.app.linkintegrity.handlers import modifiedContent
-from plone.app.linkintegrity.utils import referencedRelationship
+from plone.app.linkintegrity.handlers import modifiedDexterity as modifiedContent
+from plone.app.linkintegrity.handlers import referencedRelationship
 from plone.app.relationfield.event import update_behavior_relations
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.interfaces import IDexterityContent
@@ -29,6 +27,13 @@ from zope.lifecycleevent import modified
 
 import json
 import logging
+
+try:
+    from plone.app.iterate.dexterity import ITERATE_RELATION_NAME
+    from plone.app.iterate.dexterity.relation import StagingRelationValue
+except ImportError:
+    ITERATE_RELATION_NAME = None
+    StagingRelationValue = None
 
 logger = logging.getLogger(__name__)
 
