@@ -61,7 +61,9 @@ class InspectRelationsControlpanel(BrowserView):
 
         self.relations = []
         self.relations_stats, self.broken = get_relations_stats()
-        view_action = api.portal.get_registry_record('plone.types_use_view_action_in_listings')
+        portal = api.portal.get()
+        # view_action = api.portal.get_registry_record('plone.types_use_view_action_in_listings')
+        view_action = portal.portal_properties.site_properties.getProperty('typesUseViewActionInListings')
 
         if not self.relation:
             api.portal.show_message(u'Please select a relation', self.request)
